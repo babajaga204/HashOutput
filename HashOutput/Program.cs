@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Reflection.Metadata.Ecma335;
 
 namespace HashOutput
 {
@@ -10,6 +11,50 @@ namespace HashOutput
             //Exercise2_2();
             //Exercise2_3();
             Exercise2_9();
+        }
+
+        static void Exercise2_9()
+        {
+            Console.WriteLine("Please write a sentence");
+            string text = Console.ReadLine();
+            string[] words = text.Split(" ");
+
+            Console.WriteLine($"You sentence contains of {words.Length} words.");
+            Console.WriteLine($"The longest word in the sentence is '{FindLongestWord(words)}'. It is {FindLongestWord(words).Length} characters long.");
+            Console.WriteLine($"The word with the most vowels is '{FindWordWithMostVowels(words)}'.");
+        }
+
+        private static string FindWordWithMostVowels(string[] words)
+        {
+            string mostVowels = "";
+            int count = 0;
+            foreach (var word in words)
+            {
+                int localCount = 0;
+                foreach (var c in word)
+                {
+                    if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+                        c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U')
+                    {
+                        localCount++;
+                    }
+                }
+                if (localCount <= count) continue;
+                count = localCount;
+                mostVowels = word;
+            }
+            return mostVowels;
+        }
+
+        private static string FindLongestWord(string[] words)
+        {
+            string longestWord = "";
+            foreach (var word in words)
+            {
+               longestWord = word.Length > longestWord.Length ?  word : longestWord;
+            }
+
+            return longestWord;
         }
 
         static void Exercise2_3()
